@@ -55,4 +55,6 @@ This is how we generate these secret keys and they are useful for the session pu
 
 (1) flask_bcrypt : used for hashing the passwords and then storing them.There are two important methods inside it and those are generate_password_hash and chech_password_hash. The generate_password_hash is going to generate a different hash all the time when we run it so that is why we need the check_password_hash. And this bcrypt part should be initialized with the app, in the __init__.py file.
 
-(2) 
+(2) Custom Validators: These are the another important part for the user authentication, suppose two person create an account with the same username and email and we have already mentioned in our script that these cannot be same so this thing by the differnt users will result in error and wil cause our program to stop so to manage that we create custom validations and once any validation error occurs that message will be shown to the user instead of stoping the whole program.
+
+(3)

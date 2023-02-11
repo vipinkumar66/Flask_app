@@ -3,6 +3,7 @@ from werkzeug.utils import secure_filename
 from flaskblog import app, bcrypt,db
 from flaskblog.forms import RegistrationForm, LoginForm
 from flaskblog.models import User, Post
+from flask_login import login_user
 
 posts = [
   {
@@ -47,10 +48,12 @@ def register_func():
 def login_func():
   form = LoginForm()
   if form.validate_on_submit():
-    if form.username.data == "vipin" and form.password.data == "xyz":
-      flash('You have been logged in', 'danger')
-    else:
-      flash('Login unsuccessful, please check username and password!!', 'warning')
+    user = User.query.filter_by(email=form.email.data).first()
+    if user and bcrypt.check_password_hash(user.password, form.password.data):
+      #this login_user will help us to login user after checking the username and the password that whether they are correct or not
+      login_user(user, remember = form.remember.data)
+      return redirect(url_for("home")) 
+    flash('Login unsuccessful, please check username and password!!', 'warning')
   return render_template ("login.html", title="Login page", form=form)
 
 #this is how we handle the files uploaded by the user here we cannot trust the user so to secure our system we are using the secure_filename provided by the werkzeug.utils to save our system from any forgery attack

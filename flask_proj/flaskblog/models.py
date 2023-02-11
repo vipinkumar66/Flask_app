@@ -1,7 +1,14 @@
-from flaskblog import db
+from flaskblog import db, login_manager
 from datetime import datetime
+from flask_login import UserMixin
 
-class User(db.Model):
+#this is a decorator which will reload the user with the help of the id that is stored in the session and login manager is something that will be maintaining our all sessions at the backend
+#so this extension is going to accept that our user model should have certain attributes like is_authenticated, is_active, is_anonymous, get_id and these things are so common that flask has already added them and we just have to import them (usermixins)
+@login_manager.user_loader
+def load_user(user_id):
+  return User.query.get(int(user_id))
+
+class User(db.Model, UserMixin):
   id = db.Column(db.Integer, primary_key = True)
   username = db.Column(db.String(20), nullable = False, unique = True)
   email = db.Column(db.String(120), nullable = False, unique = True)
