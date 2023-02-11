@@ -1,0 +1,58 @@
+FLASK IMPORTANT POINTS
+
+(1) __name__ : It tells the application that where it should look for the resources.
+
+(2) Debugger: When we keep the debug==True than it automatically reloads the website once we made any changes to our main file and also gives us a good insight if we have any error in our application, this should be turned to false whenever we our hosting our web app on a production server
+
+(3) HTTP: There are two important ways using which we can do the request that is methods =['GET','POST'] or we can do the app.get('/login)
+
+(4) render_template: return render_template basically allows us to render the templates and also we can pass data with it but the first parameter weill be the name of the template which we want to render when a specific url is called. And if we want to access that data in the template than we have to use the jonsa templateing engine.
+
+(5) Request context: It keeps the track of the request data during a request, basically it creates an object for that request and make it global to a worker since a worker can handle one request at a time. And once the request ends it pops the request context and than the application context.
+
+(6) Werkzeug.utils: From this we can import the securE_filename which will help us to save the files uploaded by the user with the name given by them to us.
+
+(7) Abort: Suppose if we want to abort something if wrong things are added than we can do that using the abort and the application autmoatically renders a page related to that error but if we want to modify a page and add our own error page than at that time we can use the errorhandler with the app router.
+
+(8) Secret_keys: import secrets; print(secrets.token_hex())'
+This is how we generate these secret keys and they are useful for the session purpose.
+
+(9) Templates: jinja2 is the templating engine for the flask it provides autoescaping for the 'html', 'svg' etc. Here the auto scaping means that it will provide defence against the xss (cross site scripting). Normally we use return to return something after a input is added but here we have to use render_template along with that. Another important thing to keep in mind with respect to templates is template inheritence.
+
+(10) flask.url_for(): This is used to generate a url for the endpoint which we have given to it. This is used in case of static files.
+
+<FORMS AND USER INPUT>
+
+(1) So using the flask wtf forms we write the python classes and they automatically gets converted to the html form. And whenever we are using the forms we need secret key, it protect against modifying request and cross site forgery request issues.
+
+(2)When we enter our created forms in the html {{form.hidden_tag()}} is necessary because this hidden tag will be adding the csrf token.
+
+(3) There is a way to pass css classes to the forms in the jinja templates. {{form.username.label(class="form-control-label")}}
+
+(4) form.validate_on_submit() is a function which will be validating the forms once they are submitted by the user that whether they are proper or not. And after that we can use the flash messages from the flask to just update or alert us about the update. It accepts two arguments one is your message and other is class whether it is sucess, failure or info. And these flash_messages should be in both function and the templates.
+
+(5) The forms created like this they also have an error statement with them so we have to call them in the registration template if something like that occurs. We have to use bootstrap classes with the form like is-invalid. !!important
+
+<DATABASE WITH FLASK-SQLALCHEMY>
+
+(1) The SQLALCHEMY is a popular ORM (OBJECT RELATIONAL MAPPER) which means that we are able to access our database in an object oriented way and it allows us to use any database without affecting our python code.
+
+(2) The another important thhing is that sqlalchemy helps us to create the database with the help of sqlalchemy classes.
+
+(3) And when we have two tables and we want to add a relationship between those two then we can use the db.relationship and this is not going to add any additional column to the database suppose we have a username column in one table and posts in another table so we created a relationship with name posts so this will give all the posts related to a particular user when called, here we have one more attribute that is "backref": what this backref do is that it is a kind of column. 
+
+(4) from routes import db => db.create_all() (if this things gives an error like working outside the context than what we have to do is) from routes import db,app => app.app_context().push() => db.create_all()
+
+<<PACKAGE STRUCTURE>>
+
+(1) CIRCULAR IMPORT : Earlier we were having our main file which was having all the routes as routes.py, so what we will do is that we will create a route folder paste everything there except the routes.py file.
+
+(2) Then inside the routes folder we will create a new file routes.py and move all code from earlier routes file to this leaving the if__name__ == "__main__" part and name the old routes file as run file.
+
+(3) Whatever imports we were having in our routes file we will copy them and create a new file __int__.py and paste it there.
+
+<<USER AUTHENTICATION>>
+
+(1) flask_bcrypt : used for hashing the passwords and then storing them.There are two important methods inside it and those are generate_password_hash and chech_password_hash. The generate_password_hash is going to generate a different hash all the time when we run it so that is why we need the check_password_hash. And this bcrypt part should be initialized with the app, in the __init__.py file.
+
+(2) 
