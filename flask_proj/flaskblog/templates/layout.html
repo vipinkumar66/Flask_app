@@ -36,12 +36,15 @@
                 Interact
               </a>
               <ul class="dropdown-menu dropdown-menu-dark">
-                <li><a class="dropdown-item" href="{{ url_for('login_func') }}">Login</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('register_func') }}">Register</a></li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <!-- if our user is authenticated and logged in then we don't want him to see the login and resgister link so here we have used the if condition along with the current_user authentication -->
+                {% if current_user.is_authenticated %}
+                  <li><a class="dropdown-item" href="{{ url_for('account') }}">Account</a></li>
+                  <li><a class="dropdown-item" href="#">Create post</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('logout_func') }}">logout</a></li>
+                {% else %}
+                  <li><a class="dropdown-item" href="{{ url_for('login_func') }}">Login</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('register_func') }}">Register</a></li>
+                {% endif %}
               </ul>
             </li>
           </ul>

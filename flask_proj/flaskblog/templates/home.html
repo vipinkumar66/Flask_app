@@ -1,11 +1,19 @@
 {% extends "layout.html" %} {%block content%}
+<section class="bg-dark text-light p-5 text-center text-sm-start"><!-- text-sm-start means that untill the screen turns small keep the text align from the start otherwise it will be at the centre for that we have used the text-center. p-5 means that there should be padding of 5 on all sides, for y, x, top, bottom it is py,px,pt,pb respectively -->
+  <div class="container">
+      <div class="d-sm-flex align-items-center justify-content-between"><!-- here we d-sm-flex means that keep the items in the flex position if the screen is larger than small and once it turn small remove flex which will arrange the items vertically. align-items-center will align the items at the center of the container -->
+          <div>
+              <h1 class="fst-italic">विद्या ददाति विनयं विनयात् याति <span class="text-warning">पात्रताम्। </span><br/>
+
+                पात्रत्वाद्धनमाप्नोति धनाद्धर्मं ततः <span class="text-warning">सुखम्॥?</span></h1>
+              <p class="lead my-4 fst-italic">Knowledge gives humility, from humility, one attains character; From character, one acquires wealth; from wealth good deeds (righteousness) follow and then happiness.</p>
+          </div>
+          <img class="img-fluid w-50 d-none d-sm-block" src="{{url_for('static', filename='images/code.svg')}}" alt=""><!-- img-fluid will make the image responsive but it wont stop the image from flying out of the container so for that we have used the w-50 (to make the width of the image 50%). d-none means that dont display the image and d-sm-block means that display the image untill the screen is greater than small and if we havent given the d-none it would have still shown the image after the screen has turned small -->
+      </div>
+  </div>
+</section>
   <div class="container">
     {% for post in posts %}
-    <div class="row">
-      <div class="col">
-        <img src="{url_for('static\images' filename='undraw_blogging_re_kl0d.svg')}">
-      </div>
-    </div>
       <div class="row justify-content-center mt-3 mb-3">
         <div class="col">
           <div class="card">

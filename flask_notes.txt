@@ -21,6 +21,8 @@ This is how we generate these secret keys and they are useful for the session pu
 
 (10) flask.url_for(): This is used to generate a url for the endpoint which we have given to it. This is used in case of static files.
 
+
+
 <FORMS AND USER INPUT>
 
 (1) So using the flask wtf forms we write the python classes and they automatically gets converted to the html form. And whenever we are using the forms we need secret key, it protect against modifying request and cross site forgery request issues.
@@ -33,6 +35,8 @@ This is how we generate these secret keys and they are useful for the session pu
 
 (5) The forms created like this they also have an error statement with them so we have to call them in the registration template if something like that occurs. We have to use bootstrap classes with the form like is-invalid. !!important
 
+
+
 <DATABASE WITH FLASK-SQLALCHEMY>
 
 (1) The SQLALCHEMY is a popular ORM (OBJECT RELATIONAL MAPPER) which means that we are able to access our database in an object oriented way and it allows us to use any database without affecting our python code.
@@ -43,6 +47,8 @@ This is how we generate these secret keys and they are useful for the session pu
 
 (4) from routes import db => db.create_all() (if this things gives an error like working outside the context than what we have to do is) from routes import db,app => app.app_context().push() => db.create_all()
 
+
+
 <<PACKAGE STRUCTURE>>
 
 (1) CIRCULAR IMPORT : Earlier we were having our main file which was having all the routes as routes.py, so what we will do is that we will create a route folder paste everything there except the routes.py file.
@@ -51,10 +57,25 @@ This is how we generate these secret keys and they are useful for the session pu
 
 (3) Whatever imports we were having in our routes file we will copy them and create a new file __int__.py and paste it there.
 
+
+
 <<USER AUTHENTICATION>>
 
 (1) flask_bcrypt : used for hashing the passwords and then storing them.There are two important methods inside it and those are generate_password_hash and chech_password_hash. The generate_password_hash is going to generate a different hash all the time when we run it so that is why we need the check_password_hash. And this bcrypt part should be initialized with the app, in the __init__.py file.
 
 (2) Custom Validators: These are the another important part for the user authentication, suppose two person create an account with the same username and email and we have already mentioned in our script that these cannot be same so this thing by the differnt users will result in error and wil cause our program to stop so to manage that we create custom validations and once any validation error occurs that message will be shown to the user instead of stoping the whole program.
 
-(3)
+(3) flask_login: It helps in maintaining the session when the user login and logout of the system. @user_loader decorator, what does this do is that it reloads the user with the user.id that is stored in the session.
+
+(4) current_user: This will check whether the currentuser which is checking our website is authenticated or not if yes then we can add some more functionality to it.
+
+(5) We created an account page for all the users, once they are logout they can still access that page but are not able to see the details but still we will be placing a check point that will be placing a login page if unauthorized user try to access the account page. So for this we need login_required decorator and to tell oup app that whenver such page is accessed then where to send him this thing should be initialized in the __init__.py file as (login_manager.login_view) and this will display the flash messages in theri own style so suppose if we want to change them according to the bootstrap classes than login_manager.login_messager_cateogry we have to set in the same __init__.py file
+
+
+<< PROFILE PIC >>
+
+(1) Images: To add the images basically the one which will be uploaded by the users can be added by creatung a varible in the account function and then simply we can pass it with the templates when we are rendering it. We can also create the url_for that
+
+(2) UPDATE ACCOUNT FORM: Here this will be same as that of the registration form but it wont have the fields related to the password and conform password and also this form will have those validation check for email and username that whether they are already taken by some other user or not but what if our user submit the updation form without saving any changes but still our code will query the database and check so in this way it will throw the error but for that we are going to use the current_user part.
+
+In this update account form I have used it in the account part they I have focussed on two parts mainly: The first one is that the username and the email will be shown on the screen for the particular user and also he will be able to update the form.
