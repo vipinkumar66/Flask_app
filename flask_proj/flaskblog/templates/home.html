@@ -15,15 +15,19 @@
   <div class="container">
     {% for post in posts %}
       <div class="row justify-content-center mt-3 mb-3">
+        <div class="col-2 m-1">
+          <img src="{{url_for('static', filename='profile_pics/' + post.author.image)}}" alt="" class="img-thumbnail d-none d-sm-block">
+        </div>
         <div class="col">
           <div class="card">
             <div class="card-header">
-              {{post.author}}
+              <a href="#">
+                {{post.author.username}}
+              </a>
             </div>
             <div class="card-body">
-              <h5 class="card-title">{{post.title}}</h5>
+              <h5 class="card-title"><a class="link-dark" href="{{url_for('post', post_id = post.id)}}">{{post.title}}</a></h5>
               <p class="card-text">{{post.content}}</p>
-              <a href="#" class="btn btn-primary">Read more</a>
             </div>
           </div>
         </div>

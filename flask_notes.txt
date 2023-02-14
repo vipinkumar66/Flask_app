@@ -79,3 +79,19 @@ This is how we generate these secret keys and they are useful for the session pu
 (2) UPDATE ACCOUNT FORM: Here this will be same as that of the registration form but it wont have the fields related to the password and conform password and also this form will have those validation check for email and username that whether they are already taken by some other user or not but what if our user submit the updation form without saving any changes but still our code will query the database and check so in this way it will throw the error but for that we are going to use the current_user part.
 
 In this update account form I have used it in the account part they I have focussed on two parts mainly: The first one is that the username and the email will be shown on the screen for the particular user and also he will be able to update the form.
+
+(3) FILE_FIELD: This can be imported from the flask_wtf.fields. It also has the file_allowed which will basically check what kind of files are allowed for it. 
+
+(4) The another important task is that suppose a person uploaded a file than how to save that file in our system, for that we will be creating a separate function and inside that we will be using two important modules: secrets and the os. The secrets module will help us to hash the file name because there can be a scenario that same name image could be uploaded by the another user also and than we are using the os module for the 2 reasons: getting the file extension and also telling the path where the file should be stored as.
+
+(5) Pillow: We will beinstalling this in our system first as pip install Pillow and then import the Image class form this and then we can basically use it. Why we are using it? For the reason that we want to resize the images uploaded by the user so that our app performs faster. 
+
+<< POST CREATE/UPDATE/DELETE >>
+
+(1)  First create a post form and after creating that form create a route and then initate that form there in that route and than create a html file render with the url metioned in the route along with the post form.
+
+(2) The next step in our route what we did is that we took the data from the form from the user and then created a post from it and saved it and also in our home route where we were dealing with the pre given posts there we started taking these posts.
+
+(3) Adding variables to our routes: This thing is we are doing for the indiviudal posts, using their postid, we created a separate HTML file for that. And we have used it for viewing a particular post, updating that post or deleting that post. And for deleting we have used a modal here that will be very beneficial for us.
+
+(4) 

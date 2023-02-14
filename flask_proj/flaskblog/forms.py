@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed #this one here we are using for the profile picture updation
 from .models import User
 from flask_login import current_user
-from wtforms.fields import StringField, PasswordField, SubmitField, BooleanField
+from wtforms.fields import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 
 class RegistrationForm(FlaskForm):
@@ -47,3 +47,8 @@ class AccountUpdateForm(FlaskForm):
             email = User.query.filter_by(email=email.data).first()
             if email:
                 raise ValidationError("Email is already taken! Try with another email.")
+
+class PostForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    content = TextAreaField('Tell Your Thoughts', validators=[DataRequired()])
+    submit = SubmitField('Submit')
