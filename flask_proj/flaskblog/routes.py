@@ -12,7 +12,8 @@ from flask_login import login_user, current_user, logout_user, login_required
 @app.route('/')
 @app.route('/home')
 def home():
-  posts = Post.query.all()
+  page = request.args.get('page', 1, type=int) #this is to get the page from the user and if he doesn't give this then we will be directly giving it as 1 and also metions the type
+  posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=1) #this is a paginate request and here we are setting teh different pages according to the requests and also along with that we are arranging all the new posts first and the old ones after that
   title = "flask project"
   return render_template ('home.html', title=title, posts=posts)
 

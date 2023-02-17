@@ -94,4 +94,8 @@ In this update account form I have used it in the account part they I have focus
 
 (3) Adding variables to our routes: This thing is we are doing for the indiviudal posts, using their postid, we created a separate HTML file for that. And we have used it for viewing a particular post, updating that post or deleting that post. And for deleting we have used a modal here that will be very beneficial for us.
 
-(4) 
+<< PAGINATION  >>
+
+(1) The sqlalchemy has a function called paginate() so using that we can tell how many items should be present per page, default value is 20 but if you want to set it then this can be done using the paginate(per_page = 5).
+
+(2) Before using paginate we can also use order_by(post.date_posted.desc()).paginate() like this we can manage the sorting of the posts on the basis of newly posts
